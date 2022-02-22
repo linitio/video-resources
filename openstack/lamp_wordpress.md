@@ -1,23 +1,23 @@
-# This file list all commands you can see in the video :
-# Titre_ Video : URL_Video
+This file list all commands you can see in the video :
+Titre_ Video : URL_Video
 
-# All these command permit to deploy Wordpress in OpenStack instances
-# Using LAMP Stack (Linux, Apache, MySQL/MariaDB, PHP) on Ubuntu Server
+All these command permit to deploy Wordpress in OpenStack instances
+Using LAMP Stack (Linux, Apache, MySQL/MariaDB, PHP) on Ubuntu Server
 
-## Update the server
+### Update the server
 
 ```
 sudo apt update
 sudo apt full-upgrade
 ```
 
-# Install all required software
+### Install all required software
 
 ```
 sudo apt install apache2 mariadb-server php libapache2-mod-php php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip certbot python3-certbot-apache
 ```
 
-# Verify all services are started and enable at boot
+### Verify all services are started and enable at boot
 
 ```
 sudo systemctl enable apache2
@@ -26,23 +26,25 @@ sudo systemctl enable mariadb
 sudo systemctl restart mariadb
 ```
 
-# Configure MariaDB securely
+### Configure MariaDB securely
 
 ```
 sudo mysql_secure_installation
 ```
 
-# Create MySQL/MariaDB database and user for wordpress
+### Create MySQL/MariaDB database and user for wordpress
 
 ```
 sudo mysql
+```
+
 CREATE DATABASE wordpress_database_name;
 GRANT ALL PRIVILEGES ON wordpress_database_name.* TO "wordpress_database_username"@"localhost" IDENTIFIED BY "wordpress_database_password";
 FLUSH PRIVILEGES;
 exit
 ```
 
-# Download Wordpress and configure permissions
+### Download Wordpress and configure permissions
 
 ```
 wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz
@@ -50,7 +52,7 @@ sudo tar -xzvf /tmp/wordpress.tar.gz -C /var/www
 sudo chown -R www-data:www-data /var/www/wordpress
 ```
 
-# Configure Apache web server with Wordpress
+### Configure Apache web server with Wordpress
 
 ```
 sudo vi /etc/apache2/sites-available/site_name.conf
