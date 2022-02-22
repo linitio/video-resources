@@ -1,25 +1,24 @@
-This file list all commands you can see in the video :
-Titre_ Video : URL_Video
+This file list all commands you can see in the video : 
+Titre_ Video : URL_Video 
 
-All these command permit to deploy Wordpress in OpenStack instances
-Using LAMP Stack (Linux, Apache, MySQL/MariaDB, PHP) on Ubuntu Server
+All these command permit to deploy Wordpress in OpenStack instances, using LAMP Stack (Linux, Apache, MySQL/MariaDB, PHP) on Ubuntu Server
 
 ### Update the server
 
-```
+```bash
 sudo apt update
 sudo apt full-upgrade
 ```
 
 ### Install all required software
 
-```
+```bash
 sudo apt install apache2 mariadb-server php libapache2-mod-php php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip certbot python3-certbot-apache
 ```
 
 ### Verify all services are started and enable at boot
 
-```
+```bash
 sudo systemctl enable apache2
 sudo systemctl restart apache2
 sudo systemctl enable mariadb
@@ -28,18 +27,18 @@ sudo systemctl restart mariadb
 
 ### Configure MariaDB securely
 
-```
+```bash
 sudo mysql_secure_installation
 ```
 
 ### Create MySQL/MariaDB database and user for wordpress
 
-```
+```bash
 sudo mysql
 ```
-### /!\ All this commands bellow are executed in MySQL/MariaDB Shell
+#### /!\ All this commands bellow are executed in MySQL/MariaDB Shell
 
-```
+```sql
 CREATE DATABASE wordpress_database_name;
 GRANT ALL PRIVILEGES ON wordpress_database_name.* TO "wordpress_database_username"@"localhost" IDENTIFIED BY "wordpress_database_password";
 FLUSH PRIVILEGES;
@@ -56,11 +55,11 @@ sudo chown -R www-data:www-data /var/www/wordpress
 
 ### Configure Apache web server with Wordpress
 
-```
+```bash
 sudo vi /etc/apache2/sites-available/site_name.conf
 ```
 Paste this content in your file:
-```
+```vim
 <VirtualHost *:80>
     ServerAdmin kevin@domain.tld
     ServerName blog.domain.tld
@@ -87,7 +86,7 @@ Paste this content in your file:
 
 # Disabling default website and activate wordpress configuration
 
-```
+```bash
 sudo a2dissite 000-default
 sudo a2ensite site_name.conf
 sudo systemctl reload apache2
@@ -95,7 +94,7 @@ sudo systemctl reload apache2
 
 # Enabling HTTPS on Wordpress website
 
-```
+```bash
 sudo apt install certbot python3-certbot-apache
 sudo certbot --apache
 sudo systemctl status certbot.timer
