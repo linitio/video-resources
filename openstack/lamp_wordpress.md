@@ -84,7 +84,7 @@ Paste this content in your file:
 </VirtualHost>
 ```
 
-# Disabling default website and activate wordpress configuration
+### Disabling default website and activate wordpress configuration
 
 ```bash
 sudo a2dissite 000-default
@@ -92,7 +92,7 @@ sudo a2ensite site_name.conf
 sudo systemctl reload apache2
 ```
 
-# Enabling HTTPS on Wordpress website
+### Enabling HTTPS on Wordpress website
 
 ```bash
 sudo apt install certbot python3-certbot-apache
