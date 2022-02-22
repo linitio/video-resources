@@ -37,7 +37,9 @@ sudo mysql_secure_installation
 ```
 sudo mysql
 ```
+### /!\ All this commands bellow are executed in MySQL/MariaDB Shell
 
+```
 CREATE DATABASE wordpress_database_name;
 GRANT ALL PRIVILEGES ON wordpress_database_name.* TO "wordpress_database_username"@"localhost" IDENTIFIED BY "wordpress_database_password";
 FLUSH PRIVILEGES;
