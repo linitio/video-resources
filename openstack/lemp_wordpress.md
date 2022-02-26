@@ -1,4 +1,4 @@
-# Deploy LAMP Stack on Openstack Instance
+# Deploy LEMP Stack on Openstack Instance
 
 This file list all commands you can see in the video : 
 Titre_ Video : URL_Video
