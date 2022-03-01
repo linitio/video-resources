@@ -19,14 +19,16 @@ sudo apt full-upgrade
 ### Install all required software
 
 ```bash
-sudo apt install apache2 mariadb-server php libapache2-mod-php php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip certbot python3-certbot-apache
+sudo apt install php-fpm php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip certbot python3-certbot-nginx
 ```
 
 ### Verify all services are started and enable at boot
 
 ```bash
-sudo systemctl enable apache2
-sudo systemctl restart apache2
+sudo systemctl enable nginx
+sudo systemctl restart nginx
+sudo systemctl enable php7.4-fpm
+sudo systemctl restart php7.4-fpm
 sudo systemctl enable mariadb
 sudo systemctl restart mariadb
 ```
@@ -59,49 +61,63 @@ sudo tar -xzvf /tmp/wordpress.tar.gz -C /var/www
 sudo chown -R www-data:www-data /var/www/wordpress
 ```
 
-### Configure Apache web server with Wordpress
+### Configure Nginx web server with Wordpress
 
 ```bash
-sudo vi /etc/apache2/sites-available/site_name.conf
+sudo vi /etc/nginx/sites-available/site_name.conf
 ```
 Paste this content in your file:
 ```vim
-<VirtualHost *:80>
-    ServerAdmin kevin@domain.tld
-    ServerName blog.domain.tld
-    DocumentRoot /var/www/wordpress
+server {
 
-    # Custom log files, to differentiate from root server
-    ErrorLog ${APACHE_LOG_DIR}/error-wordpress.log
-    CustomLog ${APACHE_LOG_DIR}/access-wordpress.log combined
+        server_name cloud-formation.com;
+        root /var/www/wordpress;
+        index index.php index.html index.htm;
+
+            location / {
+                try_files $uri $uri/ /index.php?$args;
+            }
+
+            location = /favicon.ico {
+                log_not_found off;
+                access_log off;
+            }
+
+            location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+                expires max;
+                log_not_found off;
+            }
+
+            location = /robots.txt {
+                allow all;
+                log_not_found off;
+                access_log off;
+            }
+
+           location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                include fastcgi_params;
+           }
+    access_log  /var/log/nginx/access-wordpress.log;
+    error_log  /var/log/nginx/error-wordpress.log  warn;
     
-    Alias /wp-content /var/www/wordpress/wp-content
+}
 
-    <Directory /var/www/wordpress>
-        Options FollowSymLinks
-        AllowOverride Limit Options FileInfo
-        DirectoryIndex index.php
-        Require all granted
-    </Directory>
-    <Directory /var/www/wordpress/wp-content>
-        Options FollowSymLinks
-        Require all granted
-    </Directory>
-</VirtualHost>
 ```
 
 ### Disabling default website and activate wordpress configuration
 
 ```bash
-sudo a2dissite 000-default
-sudo a2ensite site_name.conf
-sudo systemctl reload apache2
+sudo rm /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/site_name.conf /etc/nginx/sites-enabled/site_name;conf
+sudo systemctl reload nginx
 ```
 
 ### Enabling HTTPS on Wordpress website
 
 ```bash
-sudo apt install certbot python3-certbot-apache
-sudo certbot --apache
+sudo certbot --nginx
 sudo systemctl status certbot.timer
 ```
