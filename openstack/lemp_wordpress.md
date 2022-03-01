@@ -7,7 +7,7 @@ Titre_ Video : URL_Video
 
 <img src="https://static.linit.io/img/logo/openstack-logo.png" width="50"> <img src="https://static.linit.io/img/logo/linux-logo.png" width="50"> <img src="https://static.linit.io/img/logo/nginx-logo.png" width="50"> <img src="https://static.linit.io/img/logo/mariadb-logo.png" width="50"> <img src="https://static.linit.io/img/logo/php-logo.png" width="50">
 
-All these command permit to deploy Wordpress in OpenStack instances, using LEMP Stack (Linux, Nginx (EngineX), MySQL/MariaDB, PHP) on Ubuntu Server
+All these command permit to deploy Wordpress in OpenStack instances, using LEMP Stack (Linux, Nginx (EngineX), MySQL/MariaDB, PHP) on Ubuntu Server 20.04
 
 ### Update the server
 
