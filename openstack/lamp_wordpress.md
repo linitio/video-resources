@@ -9,6 +9,12 @@ Titre_ Video : URL_Video
 
 All these command permit to deploy Wordpress in OpenStack instances, using LAMP Stack (Linux, Apache, MySQL/MariaDB, PHP) on Ubuntu Server 20.04
 
+### Deployed Architecture:
+
+<p align="center">
+  <img src="https://static.linit.io/img/architectures/openstack-lamp.png" width="600"/>
+</p>
+
 ### Update the server
 
 ```bash
