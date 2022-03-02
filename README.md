@@ -1,4 +1,4 @@
-# video-resources
+# Video Resources
 Video ressources for LinIT Youtube Channel
 
 ### OpenStack
