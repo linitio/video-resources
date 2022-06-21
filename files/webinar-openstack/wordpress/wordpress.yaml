@@ -23,7 +23,8 @@ runcmd:
   - wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz
   - tar -xzvf /tmp/wordpress.tar.gz -C /var/www
   - chown -R www-data:www-data /var/www/wordpress
-  - wget -O /etc/apache2/sites_available/wordpress.conf
+  - wget -O /etc/apache2/sites-available/wordpress.conf https://raw.githubusercontent.com/linitio/video-resources/main/files/webinar-openstack/wordpress/wordpress.conf
+  - a2dissite 000-default
   - a2ensite wordpress.conf
   - systemctl enable apache2
   - systemctl restart apache2
