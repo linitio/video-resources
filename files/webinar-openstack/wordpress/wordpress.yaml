@@ -28,5 +28,6 @@ runcmd:
   - a2ensite wordpress.conf
   - systemctl enable apache2
   - systemctl restart apache2
+  - certbot -n --apache --agree-tos --redirect --hsts --uir --staple-ocsp --email admin@cloud-formation.com -d demo.domain.tld -v
 
 final_message: "The system is finally up, after $UPTIME seconds"
