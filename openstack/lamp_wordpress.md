@@ -73,7 +73,7 @@ sudo vi /etc/apache2/sites-available/site_name.conf
 Paste this content in your file:
 ```vim
 <VirtualHost *:80>
-    ServerAdmin kevin@domain.tld
+    ServerAdmin webmaster@domain.tld
     ServerName default
     ServerAlias *
     DocumentRoot /var/www/wordpress
