@@ -74,7 +74,8 @@ Paste this content in your file:
 ```vim
 <VirtualHost *:80>
     ServerAdmin kevin@domain.tld
-    ServerName blog.domain.tld
+    ServerName default
+    ServerAlias *
     DocumentRoot /var/www/wordpress
 
     # Custom log files, to differentiate from root server
